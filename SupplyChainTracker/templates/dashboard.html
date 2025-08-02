@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: #f4f3f9;
+  }
+
+  .dashboard-container {
+    display: flex;
+    height: 100vh;
+  }
+
+  .sidebar {
+    width: 220px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  }
+
+  .sidebar h2 {
+    color: #7f00ff;
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 30px;
+  }
+
+  .sidebar a {
+    display: block;
+    color: #444;
+    text-decoration: none;
+    margin: 12px 0;
+    font-size: 15px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+
+  .sidebar a:hover {
+    background-color: #eee;
+  }
+
+  .main-content {
+    flex: 1;
+    padding: 30px;
+    background-color: #f9f9fd;
+  }
+
+  .welcome-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .welcome-bar h2 {
+    font-size: 24px;
+    color: #333;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+
+  .card {
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+
+  .card:nth-child(2) {
+    background: linear-gradient(to right, #43cea2, #185a9d);
+  }
+
+  .card:nth-child(3) {
+    background: linear-gradient(to right, #667eea, #764ba2);
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+  .card h3 {
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  .card p {
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .actions {
+    margin-top: 40px;
+  }
+
+  .actions a {
+    display: inline-block;
+    padding: 10px 18px;
+    margin-right: 10px;
+    background-color: #7f00ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .actions a:hover {
+    background-color: #6200cc;
+  }
+
+</style>
+
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Dashboard</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/add_product">Add Product</a>
+    <a href="/track">Track Product</a>
+    <a href="/logout">Logout</a>
+  </div>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <div class="welcome-bar">
+      <h2>Welcome, {{ role }}</h2>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Weekly Sales</h3>
+        <p>$15,000</p>
+        <small>Increased by 60%</small>
+      </div>
+      <div class="card">
+        <h3>Weekly Orders</h3>
+        <p>45,6334</p>
+        <small>Decreased by 10%</small>
+      </div>
+      <div class="card">
+        <h3>Visitors Online</h3>
+        <p>95,5741</p>
+        <small>Increased by 5%</small>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a href="/add_product">Add / Update Product</a>
+      <a href="/track">Track Product</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Track Your Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: url('https://coolbackgrounds.imgix.net/2yshzKRKgFzSHxTbMo8O4t/2ba933effa98cdb9d229f13ec57b13ee/white-canyon.jpg?w=3840&q=60&auto=format,compress') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        h2, h3, h4 {
+            text-align: center;
+        }
+
+        .notice {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .tracking-form {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 900px;
+            margin: 30px auto;
+            flex-wrap: wrap;
+            background-color: rgba(145, 2, 2, 0.9);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: perspective(1000px);
+        }
+
+        .form-section {
+            flex: 1 1 300px;
+            margin: 10px;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        button {
+            background-color: black;
+            color: rgb(144, 3, 3);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 40px;
+            background-color: rgba(222, 222, 222, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px 18px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f8f8f8;
+        }
+
+        .qr, .timeline {
+            margin-top: 40px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .timeline ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .timeline li {
+            margin: 10px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Track Product</h2>
+    
+    {% if pid %}
+        <h3>Product ID: {{ pid }}</h3>
+
+        {% if history %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Block</th>
+                        <th>Updated By</th>
+                        <th>Description</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for block in history %}
+                        <tr>
+                            <td>{{ block.index }}</td>
+                            <td>{{ block.data.by | title }}</td>
+                            <td>{{ block.data.description }}</td>
+                            <td>{{ block.timestamp | datetimeformat }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="qr">
+                <h4>Scan QR Code:</h4>
+                <img src="data:image/png;base64,{{ qr }}" alt="QR Code for {{ pid }}">
+            </div>
+
+            <div class="timeline">
+                <h3>Flow Timeline</h3>
+                <ul>
+                    {% for block in history %}
+                        <li><strong>{{ block.data.by | title }}:</strong> {{ block.data.description }} ({{ block.timestamp | datetimeformat }})</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p class="notice">No history found for this Product ID.</p>
+        {% endif %}
+    {% endif %}
+  <a class="back-link" href="{{ url_for('dashboard') }}">⬅ Back to Dashboard</a>
+  </div>
+</body>
+</html>
